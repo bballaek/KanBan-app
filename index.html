@@ -525,7 +525,7 @@
     // Add current date
     bodyContents.push({
         type: "text",
-        text: "การบ้านประจำวันที่ " + currentDate,
+        text: "ประจำวันที่ " + currentDate,
         size: "sm",
         color: "#787774",
         margin: "md"
@@ -568,12 +568,12 @@
     homeworkItems.forEach((item, index) => {
         // ✅ ดึงชื่อวิชา และถ้าเลือก "อื่น ๆ" ให้ใช้ค่าจาก input
         let subject = item.querySelector('.subject-select').value;
-        if (subject === 'อื่น ๆ') {
-            const customInput = item.querySelector('.other-subject-input');
-            if (customInput && customInput.value.trim() !== '') {
-                subject = customInput.value.trim();
-            }
-        }
+if (subject === 'อื่น ๆ') {
+  const customInput = item.querySelector('.other-subject-input');
+  if (customInput && customInput.value.trim() !== '') {
+    subject = customInput.value.trim();
+  }
+}
 
         const topic = item.querySelector('.topic').value;
         const details = item.querySelector('.details').value;
@@ -811,7 +811,7 @@
     <option value="อื่น ๆ">อื่น ๆ</option>
   </select>
 
-  <input type="text" class="other-subject-input form-control mt-2" placeholder="ระบุชื่อวิชาเพิ่มเติม" style="display: none;" />
+  <input type="text" class="other-subject-input" placeholder="ระบุชื่อวิชาเพิ่มเติม" style="display:none; margin-top: 8px;" />
 </div>
 
                         <div class="form-group">
@@ -843,7 +843,7 @@
             function handleOtherSubject(selectElement) {
   const formGroup = selectElement.closest('.form-group');
   const otherInput = formGroup.querySelector('.other-subject-input');
-  
+
   if (selectElement.value === 'อื่น ๆ') {
     otherInput.style.display = 'block';
   } else {
