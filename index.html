@@ -512,166 +512,172 @@
                 return `${date.getDate()} ${months[date.getMonth()]} ${thaiYear}`;
             }
 
-            // Generate Flex Message JSON from homework data
             function generateFlexMessage() {
-                const homeworkItems = document.querySelectorAll('.homework-item');
-                if (homeworkItems.length === 0) {
-                    return null;
-                }
+    const homeworkItems = document.querySelectorAll('.homework-item');
+    if (homeworkItems.length === 0) {
+        return null;
+    }
 
-                const currentDate = document.getElementById('currentDate').textContent;
-                const totalHomework = homeworkItems.length;
-                const bodyContents = [];
+    const currentDate = document.getElementById('currentDate').textContent;
+    const totalHomework = homeworkItems.length;
+    const bodyContents = [];
 
-                // Add current date
-                bodyContents.push({
-                    type: "text",
-                    text: "การบ้านประจำวันที่ " + currentDate,
-                    size: "sm",
-                    color: "#787774",
-                    margin: "md"
-                });
+    // Add current date
+    bodyContents.push({
+        type: "text",
+        text: "การบ้านประจำวันที่ " + currentDate,
+        size: "sm",
+        color: "#787774",
+        margin: "md"
+    });
 
-                // Add summary
-                bodyContents.push({
-                    type: "box",
-                    layout: "horizontal",
-                    contents: [
-                        {
-                            type: "text",
-                            text: "📊 สรุป",
-                            weight: "bold",
-                            color: "#37352F",
-                            size: "sm",
-                            flex: 0
-                        },
-                        {
-                            type: "text",
-                            text: `ทั้งหมด ${totalHomework} ชิ้น`,
-                            color: "#2383E2",
-                            size: "sm",
-                            align: "end",
-                            weight: "bold"
-                        }
-                    ],
-                    margin: "md",
-                    backgroundColor: "#F7F6F3",
-                    paddingAll: "sm",
-                    cornerRadius: "md"
-                });
-
-                bodyContents.push({
-                    type: "separator", 
-                    margin: "lg"
-                });
-
-                // Add each homework item
-                homeworkItems.forEach((item, index) => {
-                    const subject = item.querySelector('.subject-select').value;
-                    const topic = item.querySelector('.topic').value;
-                    const details = item.querySelector('.details').value;
-                    const dueDate = item.querySelector('.due-date').value;
-
-                    if (!subject || !topic || !dueDate) return;
-
-                    // Homework number and subject
-                    bodyContents.push({
-                        type: "box",
-                        layout: "horizontal",
-                        contents: [
-                            {
-                                type: "text",
-                                text: `${index + 1}. ${subject}`,
-                                weight: "bold",
-                                size: "md",
-                                color: "#37352F",
-                                flex: 3
-                            },
-                            {
-                                type: "text",
-                                text: `ส่ง: ${formatThaiDate(dueDate)}`,
-                                size: "sm",
-                                weight: "bold",
-                                color: "#FF0000",
-                                color: "#EF4444",
-                                align: "end",
-                                flex: 2
-                            }
-                        ],
-                        margin: "lg"
-                    });
-
-                    // Topic
-                    bodyContents.push({
-                        type: "text",
-                        text: `${topic}`,
-                        size: "sm",
-                        color: "#37352F",
-                        margin: "sm",
-                        wrap: true
-                    });
-
-                    // Details (if any)
-                    if (details) {
-                        bodyContents.push({
-                            type: "text",
-                            text: `${details}`,
-                            size: "xs",
-                            color: "#787774",
-                            margin: "xs",
-                            wrap: true
-                        });
-                    }
-
-                    // Add separator between items (except last)
-                    if (index < homeworkItems.length - 1) {
-                        bodyContents.push({
-                            type: "separator",
-                            margin: "lg"
-                        });
-                    }
-                });
-
-                return {
-                    type: "bubble",
-                    header: {
-                        type: "box",
-                        layout: "vertical",
-                        contents: [
-                            {
-                                type: "text",
-                                text: "Homework M.1/7",
-                                weight: "bold",
-                                color: "#FFFFFF",
-                                size: "lg",
-                                align: "center"
-                            }
-                        ],
-                        backgroundColor: "#2383E2",
-                        paddingAll: "md"
-                    },
-                    body: {
-                        type: "box",
-                        layout: "vertical",
-                        contents: bodyContents,
-                        spacing: "sm"
-                    },
-                    footer: {
-                        type: "box",
-                        layout: "vertical",
-                        contents: [
-                            {
-                                type: "text",
-                                text: "© SG.Secondaryone-seven",
-                                size: "xs",
-                                color: "#AEAEAB",
-                                align: "center"
-                            }
-                        ],
-                        paddingAll: "sm"
-                    }
-                };
+    // Add summary
+    bodyContents.push({
+        type: "box",
+        layout: "horizontal",
+        contents: [
+            {
+                type: "text",
+                text: "📊 สรุป",
+                weight: "bold",
+                color: "#37352F",
+                size: "sm",
+                flex: 0
+            },
+            {
+                type: "text",
+                text: `ทั้งหมด ${totalHomework} ชิ้น`,
+                color: "#2383E2",
+                size: "sm",
+                align: "end",
+                weight: "bold"
             }
+        ],
+        margin: "md",
+        backgroundColor: "#F7F6F3",
+        paddingAll: "sm",
+        cornerRadius: "md"
+    });
+
+    bodyContents.push({
+        type: "separator",
+        margin: "lg"
+    });
+
+    // Add each homework item
+    homeworkItems.forEach((item, index) => {
+        // ✅ ดึงชื่อวิชา และถ้าเลือก "อื่น ๆ" ให้ใช้ค่าจาก input
+        let subject = item.querySelector('.subject-select').value;
+        if (subject === 'อื่น ๆ') {
+            const customInput = item.querySelector('.other-subject-input');
+            if (customInput && customInput.value.trim() !== '') {
+                subject = customInput.value.trim();
+            }
+        }
+
+        const topic = item.querySelector('.topic').value;
+        const details = item.querySelector('.details').value;
+        const dueDate = item.querySelector('.due-date').value;
+
+        if (!subject || !topic || !dueDate) return;
+
+        // Homework number and subject
+        bodyContents.push({
+            type: "box",
+            layout: "horizontal",
+            contents: [
+                {
+                    type: "text",
+                    text: `${index + 1}. ${subject}`,
+                    weight: "bold",
+                    size: "md",
+                    color: "#37352F",
+                    flex: 3
+                },
+                {
+                    type: "text",
+                    text: `ส่ง: ${formatThaiDate(dueDate)}`,
+                    size: "sm",
+                    weight: "bold",
+                    color: "#EF4444",
+                    align: "end",
+                    flex: 2
+                }
+            ],
+            margin: "lg"
+        });
+
+        // Topic
+        bodyContents.push({
+            type: "text",
+            text: `${topic}`,
+            size: "sm",
+            color: "#37352F",
+            margin: "sm",
+            wrap: true
+        });
+
+        // Details (if any)
+        if (details) {
+            bodyContents.push({
+                type: "text",
+                text: `${details}`,
+                size: "xs",
+                color: "#787774",
+                margin: "xs",
+                wrap: true
+            });
+        }
+
+        // Add separator between items (except last)
+        if (index < homeworkItems.length - 1) {
+            bodyContents.push({
+                type: "separator",
+                margin: "lg"
+            });
+        }
+    });
+
+    return {
+        type: "bubble",
+        header: {
+            type: "box",
+            layout: "vertical",
+            contents: [
+                {
+                    type: "text",
+                    text: "Homework M.1/7",
+                    weight: "bold",
+                    color: "#FFFFFF",
+                    size: "lg",
+                    align: "center"
+                }
+            ],
+            backgroundColor: "#2383E2",
+            paddingAll: "md"
+        },
+        body: {
+            type: "box",
+            layout: "vertical",
+            contents: bodyContents,
+            spacing: "sm"
+        },
+        footer: {
+            type: "box",
+            layout: "vertical",
+            contents: [
+                {
+                    type: "text",
+                    text: "© SG.Secondaryone-seven",
+                    size: "xs",
+                    color: "#AEAEAB",
+                    align: "center"
+                }
+            ],
+            paddingAll: "sm"
+        }
+    };
+}
 
             // Share to LINE function
             async function shareToLine() {
@@ -780,7 +786,7 @@
                     <div class="form-row">
                         <div class="form-group">
   <label><i class="fas fa-book"></i> วิชา</label>
-  <select class="subject-select" id="subjectSelect" required onchange="handleOtherSubject(this)">
+  <select class="subject-select" required onchange="handleOtherSubject(this)">
     <option value="">เลือกวิชา</option>
     <option value="สังคม">สังคม</option>
     <option value="คณิต">คณิต</option>
@@ -803,11 +809,11 @@
     <option value="ประวัติ">ประวัติ</option>
     <option value="กิจกรรม">กิจกรรม</option>
     <option value="อื่น ๆ">อื่น ๆ</option>
-    
   </select>
 
-<input type="text" class="other-subject-input form-control mt-2" placeholder="ระบุชื่อวิชาเพิ่มเติม" style="display:none;" />
+  <input type="text" class="other-subject-input form-control mt-2" placeholder="ระบุชื่อวิชาเพิ่มเติม" style="display: none;" />
 </div>
+
                         <div class="form-group">
                             <label><i class="fas fa-calendar-check"></i> กำหนดส่ง</label>
                             <input type="date" class="due-date" required>
@@ -834,11 +840,11 @@
                 homeworkItem.querySelector('.due-date').value = tomorrowString;
             });
 
-            function handleOtherSubject(select) {
-  const container = select.closest('.form-group');
-  const otherInput = container.querySelector('.other-subject-input');
+            function handleOtherSubject(selectElement) {
+  const formGroup = selectElement.closest('.form-group');
+  const otherInput = formGroup.querySelector('.other-subject-input');
   
-  if (select.value === 'อื่น ๆ') {
+  if (selectElement.value === 'อื่น ๆ') {
     otherInput.style.display = 'block';
   } else {
     otherInput.style.display = 'none';
