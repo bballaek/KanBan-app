@@ -456,12 +456,6 @@
                 
                 <div id="status" style="text-align: center;"></div>
                 
-                <button type="submit" class="submit-btn">
-                    <i class="fas fa-save"></i>
-                    Save
-                </button>
-                
-                
                 <button type="button" class="line-btn" id="btnShare" onclick="shareToLine()">
                     <i class="fab fa-line"></i>
                     Send to Line
@@ -512,8 +506,8 @@
                 const date = new Date(dateString);
                 const thaiYear = date.getFullYear() + 543;
                 const months = [
-                    'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
-                    'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
+                   'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.',
+                    'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'
                 ];
                 return `${date.getDate()} ${months[date.getMonth()]} ${thaiYear}`;
             }
@@ -553,7 +547,7 @@
                         },
                         {
                             type: "text",
-                            text: `มีการบ้านทั้งหมด ${totalHomework} ชิ้น`,
+                            text: `ทั้งหมด ${totalHomework} ชิ้น`,
                             color: "#2383E2",
                             size: "sm",
                             align: "end",
@@ -752,7 +746,7 @@
                 const now = new Date();
                 const thaiYear = now.getFullYear() + 543;
                 const months = [
-                    'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+                     'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
                     'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
                 ];
                 const thaiDate = `${now.getDate()} ${months[now.getMonth()]} ${thaiYear}`;
@@ -789,7 +783,7 @@
                                 <option value="คณิตศาสตร์">คณิตศาสตร์</option>
                                 <option value="ภาษาไทย">ภาษาไทย</option>
                                 <option value="ภาษาอังกฤษ">ภาษาอังกฤษ</option>
-                                <option value="วิทยาศาสตร์">วิทยาศาสตร์</option>
+                                <option value="วิบทยาศาสตร์">วิทยาศาสตร์</option>
                                 <option value="สังคมศึกษา">สังคมศึกษา</option>
                                 <option value="ประวัติศาสตร์">ประวัติศาสตร์</option>
                                 <option value="ศิลปะ">ศิลปะ</option>
