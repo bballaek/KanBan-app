@@ -526,7 +526,7 @@
                 // Add current date
                 bodyContents.push({
                     type: "text",
-                    text: currentDate,
+                    text: "การบ้านประจำวันที่ " + currentDate,
                     size: "sm",
                     color: "#787774",
                     margin: "md"
@@ -591,6 +591,8 @@
                                 type: "text",
                                 text: `ส่ง: ${formatThaiDate(dueDate)}`,
                                 size: "sm",
+                                weight: "bold",
+                                color: "#FF0000",
                                 color: "#EF4444",
                                 align: "end",
                                 flex: 2
@@ -777,32 +779,35 @@
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label><i class="fas fa-book"></i> วิชา</label>
-                            <select class="subject-select" required>
-  <option value="">เลือกวิชา</option>
-  <option value="สังคม">สังคม</option>
-  <option value="คณิต">คณิต</option>
-  <option value="วิทย์">วิทย์</option>
-  <option value="จีน">จีน</option>
-  <option value="Sci">Sci</option>
-  <option value="ศิลปะ">ศิลปะ</option>
-  <option value="ดนตรี">ดนตรี</option>
-  <option value="SGL">SGL</option>
-  <option value="Math">Math</option>
-  <option value="Speaking and writing">Speaking and writing</option>
-  <option value="ไทย">ไทย</option>
-  <option value="สุขศึกษา">สุขศึกษา</option>
-  <option value="ลูกเสือ/ชมรม">ลูกเสือ/ชมรม</option>
-  <option value="Social">Social</option>
-  <option value="FE">FE</option>
-  <option value="พละ">พละ</option>
-  <option value="Module">Module</option>
-  <option value="การงานอาชีพฯ">การงานอาชีพฯ</option>
-  <option value="ประวัติ">ประวัติ</option>
-  <option value="อื่น ๆ ">อื่น ๆ </option>
-  <option value="กิจกรรม ">กิจกรรม </option>
-</select>
-                        </div>
+  <label><i class="fas fa-book"></i> วิชา</label>
+  <select class="subject-select" id="subjectSelect" required onchange="handleOtherSubject(this)">
+    <option value="">เลือกวิชา</option>
+    <option value="สังคม">สังคม</option>
+    <option value="คณิต">คณิต</option>
+    <option value="วิทย์">วิทย์</option>
+    <option value="จีน">จีน</option>
+    <option value="Sci">Sci</option>
+    <option value="ศิลปะ">ศิลปะ</option>
+    <option value="ดนตรี">ดนตรี</option>
+    <option value="SGL">SGL</option>
+    <option value="Math">Math</option>
+    <option value="Speaking and writing">Speaking and writing</option>
+    <option value="ไทย">ไทย</option>
+    <option value="สุขศึกษา">สุขศึกษา</option>
+    <option value="ลูกเสือ/ชมรม">ลูกเสือ/ชมรม</option>
+    <option value="Social">Social</option>
+    <option value="FE">FE</option>
+    <option value="พละ">พละ</option>
+    <option value="Module">Module</option>
+    <option value="การงานอาชีพฯ">การงานอาชีพฯ</option>
+    <option value="ประวัติ">ประวัติ</option>
+    <option value="กิจกรรม">กิจกรรม</option>
+    <option value="อื่น ๆ">อื่น ๆ</option>
+    
+  </select>
+
+  <input type="text" id="otherSubjectInput" class="form-control mt-2" placeholder="ระบุชื่อวิชาเพิ่มเติม" style="display:none;" />
+</div>
                         <div class="form-group">
                             <label><i class="fas fa-calendar-check"></i> กำหนดส่ง</label>
                             <input type="date" class="due-date" required>
@@ -840,6 +845,16 @@
                     }, 200);
                 }
             };
+
+            function handleOtherSubject(select) {
+  const otherInput = document.getElementById('otherSubjectInput');
+  if (select.value === 'อื่น ๆ') {
+    otherInput.style.display = 'block';
+  } else {
+    otherInput.style.display = 'none';
+    otherInput.value = ''; // เคลียร์ค่าถ้าเปลี่ยนกลับ
+  }
+}
             
             // Update homework numbers after removal
             function updateHomeworkNumbers() {
