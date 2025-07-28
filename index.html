@@ -833,6 +833,16 @@
                 const tomorrowString = tomorrow.toISOString().split('T')[0];
                 homeworkItem.querySelector('.due-date').value = tomorrowString;
             });
+
+            function handleOtherSubject(select) {
+  const otherInput = document.getElementById('otherSubjectInput');
+  if (select.value === 'อื่น ๆ') {
+    otherInput.style.display = 'block';
+  } else {
+    otherInput.style.display = 'none';
+    otherInput.value = ''; // เคลียร์ค่าถ้าเปลี่ยนกลับ
+  }
+}
             
             // Remove homework item
             window.removeHomework = function(id) {
@@ -846,15 +856,7 @@
                 }
             };
 
-            function handleOtherSubject(select) {
-  const otherInput = document.getElementById('otherSubjectInput');
-  if (select.value === 'อื่น ๆ') {
-    otherInput.style.display = 'block';
-  } else {
-    otherInput.style.display = 'none';
-    otherInput.value = ''; // เคลียร์ค่าถ้าเปลี่ยนกลับ
-  }
-}
+            
             
             // Update homework numbers after removal
             function updateHomeworkNumbers() {
