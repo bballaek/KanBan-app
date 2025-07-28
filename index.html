@@ -806,7 +806,7 @@
     
   </select>
 
-  <input type="text" id="otherSubjectInput" class="form-control mt-2" placeholder="ระบุชื่อวิชาเพิ่มเติม" style="display:none;" />
+  <input type="text" class="other-subject-input form-control mt-2" placeholder="ระบุชื่อวิชาเพิ่มเติม" style="display:none;" />
 </div>
                         <div class="form-group">
                             <label><i class="fas fa-calendar-check"></i> กำหนดส่ง</label>
@@ -835,12 +835,16 @@
             });
 
             function handleOtherSubject(select) {
-  const otherInput = document.getElementById('otherSubjectInput');
+  const container = select.closest('.form-group');
+  const otherInput = container.querySelector('.other-subject-input');
+  
   if (select.value === 'อื่น ๆ') {
     otherInput.style.display = 'block';
   } else {
     otherInput.style.display = 'none';
-    otherInput.value = ''; // เคลียร์ค่าถ้าเปลี่ยนกลับ
+    otherInput.value = '';
+  }
+}
   }
 }
             
