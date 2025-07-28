@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homework Secondary One-Seven</title>
+    <title>บันทึกการบ้านประจำวัน</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap');
@@ -302,14 +302,16 @@
             background-color: transparent;
             color: #787774;
             border: 1px solid #D9D9D6;
-            border-radius: 4px;
-            padding: 6px 12px;
+            border-radius: 6px;
+            padding: 14px 20px;
             cursor: pointer;
             font-weight: 500;
-            font-size: 13px;
-            margin-left: 16px;
+            font-size: 14px;
+            width: 100%;
+            margin-top: 8px;
             transition: all 0.15s ease;
             display: none;
+            letter-spacing: -0.2px;
         }
 
         .logout-btn:hover {
@@ -429,11 +431,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1><i class="fas fa-book-open"></i> Homework Secondary M.1/7</h1>
+            <h1><i class="fas fa-book-open"></i> Homework M.1/7</h1>
             <div class="date" id="currentDate"><i class="fas fa-calendar-alt"></i> 29 กรกฎาคม 2568</div>
-            <button type="button" class="logout-btn" id="btnLogOut" onclick="logOut()">
-                <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
-            </button>
         </div>
         
         <div class="form-container">
@@ -446,7 +445,7 @@
             <form id="homeworkForm">
                 <button type="button" class="add-btn" id="addHomeworkBtn">
                     <i class="fas fa-plus"></i>
-                    เพิ่มการบ้าน
+                    Add
                 </button>
                 
                 <div id="homeworkContainer">
@@ -455,12 +454,16 @@
                 
                 <button type="submit" class="submit-btn">
                     <i class="fas fa-save"></i>
-                    บันทึกการบ้าน
+                    Save
                 </button>
                 
                 <button type="button" class="line-btn" id="btnShare" onclick="shareToLine()">
                     <i class="fab fa-line"></i>
-                    ส่งเข้าไลน์
+                    Send to Line
+                </button>
+                
+                <button type="button" class="logout-btn" id="btnLogOut" onclick="logOut()">
+                    <i class="fas fa-sign-out-alt"></i> LogOut
                 </button>
             </form>
         </div>
@@ -517,6 +520,7 @@
                 }
 
                 const currentDate = document.getElementById('currentDate').textContent;
+                const totalHomework = homeworkItems.length;
                 const bodyContents = [];
 
                 // Add current date
@@ -526,6 +530,34 @@
                     size: "sm",
                     color: "#787774",
                     margin: "md"
+                });
+
+                // Add summary
+                bodyContents.push({
+                    type: "box",
+                    layout: "horizontal",
+                    contents: [
+                        {
+                            type: "text",
+                            text: "📊 สรุป",
+                            weight: "bold",
+                            color: "#37352F",
+                            size: "sm",
+                            flex: 0
+                        },
+                        {
+                            type: "text",
+                            text: `มีการบ้านทั้งหมด ${totalHomework} ชิ้น`,
+                            color: "#2383E2",
+                            size: "sm",
+                            align: "end",
+                            weight: "bold"
+                        }
+                    ],
+                    margin: "md",
+                    backgroundColor: "#F7F6F3",
+                    paddingAll: "sm",
+                    cornerRadius: "md"
                 });
 
                 bodyContents.push({
@@ -606,7 +638,7 @@
                         contents: [
                             {
                                 type: "text",
-                                text: "การบ้าน ม.1/7",
+                                text: "Homework M.1/7",
                                 weight: "bold",
                                 color: "#FFFFFF",
                                 size: "lg",
@@ -670,7 +702,7 @@
                 try {
                     const message = {
                         type: "flex",
-                        altText: "การบ้าน ม.1/7",
+                        altText: "Homework M.1/7",
                         contents: flexMessage
                     };
 
@@ -870,7 +902,7 @@
             // Initialize LIFF
             async function initializeApp() {
                 try {
-                    await liff.init({ liffId: "2006162669-A04zLroq" });
+                    await liff.init({ liffId: "2006162669-7BXpAdL8" });
                     
                     // Check if logged in
                     if (liff.isLoggedIn()) {
