@@ -510,11 +510,12 @@
             function formatThaiDate(dateString) {
                 const date = new Date(dateString);
                 const thaiYear = date.getFullYear() + 543;
+                const shortThaiYear = String(thaiYear).slice(-2); // แสดงแค่ 2 หลักท้าย
                 const months = [
                    'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.',
                     'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'
                 ];
-                return `${date.getDate()} ${months[date.getMonth()]} ${thaiYear}`;
+                return `${date.getDate()} ${months[date.getMonth()]} ${shortThaiYear}`;
             }
 
             function generateFlexMessage() {
@@ -766,11 +767,12 @@
             function updateDateTime() {
                 const now = new Date();
                 const thaiYear = now.getFullYear() + 543;
+                const shortThaiYear = String(thaiYear).slice(-2); // แสดงแค่ 2 หลักท้าย
                 const months = [
                      'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
                     'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
                 ];
-                const thaiDate = `${now.getDate()} ${months[now.getMonth()]} ${thaiYear}`;
+                const thaiDate = `${now.getDate()} ${months[now.getMonth()]} ${shortThaiYear}`;
                 
                 document.getElementById('currentDate').textContent = thaiDate;
                 document.getElementById('currentYear').textContent = now.getFullYear();
